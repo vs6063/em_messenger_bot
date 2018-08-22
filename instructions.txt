@@ -1,0 +1,83 @@
+---------- 1: MAKE SURE YOU HAVE ALL PRE-REQ'S AND DEPENDANCIES ----------
+
+Pre-req's:
+
+A linux OS
+- provides an environment to run all our linux based commands
+- I use Bash on Ubuntu (need to enable developer mode in order to get it)
+- Should have at least version 16.04; Check by running 'lsb_release -a' in Bash
+
+pip & pip3
+- used to conveniently install all our python packages 
+- https://www.rosehosting.com/blog/how-to-install-pip-on-ubuntu-16-04/
+- also run 'sudo apt-get install python3-pip' to get pip3
+
+ngrok
+- since we don't have a server to host on yet, we will use ngrok to localhost our code
+- https://ngrok.com/download
+- for this pre-req, just download the .exe file and put it wherever you want
+
+Dependancies:
+
+Python 3.6
+- http://ubuntuhandbook.org/index.php/2017/07/install-python-3-6-1-in-ubuntu-16-04-lts/
+
+Flask
+- Our Web framework
+- to install, run 'pip3 install Flask==0.12.2' in Bash
+
+Pymessenger
+- A python wrapper for Facebook Messenger
+- to instal, run 'pip3 install pymessenger' in Bash
+
+---------- 2: FACEBOOK DEVELOPER DETAILS ----------
+
+The facebook account created to test our app:
+user: rob.otman1@hotmail.com
+pass: compass123
+
+The email account used to create it:
+userL rob.otman1@hotmail.com
+pass: compass123
+
+The Page linked to the Messenger Bot is called 'Rob Otman - Estate Management Bot'
+
+To access our app details on facebook developer: 
+- Use the Facebook account to login to developers.facebook.com
+- Our app is called EM Messenger Bot
+
+---------- 3: RUNNING THE APP ----------
+
+1. Run our code
+-  navigate to the place where you cloned our repository into using Ubuntu
+-  run 'python3 app.py'
+-  Should say something like '* Running on http://127.0.0.1:5000/ (Press CTR+C to quit)'
+
+2. Make code accessible to others by using ngrok
+-  Open another terminal up that has access to your base OS, and navigate to where you stored the 'ngrok.exe'
+-  I used Windows PowerShell
+-  run 'ngrok http [number]', where [number] is the port number (the number that came after the ':' after we ran our code)
+-  for me on windows, I ran '.\ngrok http 5000' in windows powershell (the extra '.\' tells the system that ngrok is in the current directory)
+-  You should see ~5 rows of session information to indicate ngrok succeeded 
+-  the link after the second 'forwarding' row is the link that other people would use to access your app
+-  should look something like 'https://6de80da7.ngrok.io' (the random string will be different each time ngrok is run)
+
+3. Provide the URL generated to Facebook
+-  go to the 'EM Messenger Bot' app details on our Facebook Developer page
+-  go to 'Webhooks' on the LHS navigation
+-  click Edit Subscription
+-  paste the link provided by ngrok into Callback URL 
+-  (A Webhook is just a URL that other people use to communicate with our app)
+-  paste 'TESTING_TOKEN_0987654321' into Verify Token field
+-  (the Verify Token field is a token that we make up, and is stored in the app.py code.)
+-  (This token is a security measure used by Facebook to verify the bot only responds to requests sent from messenger)
+-  Click verify and save
+-  Facebook now uses this URL to contact our app everytime the page receives a message
+
+4. Bot is ready :D 
+-  Login to the Rob Otman facebook account on Facebook
+-  find our Rob Otman - Estate Management Bot page
+-  message it
+-  should receive a response
+-  (Note: Since our App is in dev mode its not available to the public)
+-  (only Rob Otman can test our code since Rob Otman is the app admin)
